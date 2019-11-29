@@ -28,7 +28,7 @@ html,body{
   height:100%;
 }
 ul{list-style:none}
-a{text-decoration: none;} 
+a{text-decoration: none;color:#000} 
 img{vertical-align:top;border:none}
  
 .clearf:after,

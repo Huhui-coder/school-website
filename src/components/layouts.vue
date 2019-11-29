@@ -1,24 +1,25 @@
 <template>
   <div class="wrap">
     <header class="header-wrap">
-      <div class="icon">长师之家</div>
+      <div class="icon">家</div>
       <div class="link">
-        <router-link to="/about">商家天地</router-link>
-        <router-link to="/about">学校天地</router-link>
-        <router-link to="/about">每日推送</router-link>
-        <router-link to="/about">投诉平台</router-link>
+        <router-link to="/market">人才市场</router-link>
+        <router-link to="/push">每日推送</router-link>
+        <router-link to="/complaint">投诉平台</router-link>
         <router-link to="/about">关于我们</router-link>
       </div>
-      <div class="user" v-if="userInfo"></div>
-      <div class="login">
-        <router-link to="/login">登录</router-link>
+      <div class="user" v-if="userInfo">
+        <router-link to="/userInfo">个人中心</router-link>
+      </div>
+      <div class="login" v-else>
+        <router-link to="/login">登录/</router-link>
         <router-link to="/register">注册</router-link>
       </div>
     </header>
     <main>
       <slot name="content" scope="props" />
     </main>
-    <footer>长江师范学院@版权所有</footer>
+    <footer>@版权所有</footer>
   </div>
 </template>
 
@@ -26,7 +27,7 @@
 export default {
   name: "layouts",
   data: () => ({
-    userInfo: false
+    userInfo: true
   }),
   mounted() {},
 
@@ -39,25 +40,28 @@ export default {
   width: 100%;
   height: 100%;
   header {
-    width: 1280px;
     margin: 0 auto;
     height: 50px;
   }
   .header-wrap {
+    color: #fff;
+    background-color: #011628;
     display: flex;
     justify-content: space-around;
     line-height: 50px;
+    a {
+      color: #fff;
+      padding: 0 10px 0 0;
+  }
   }
   main {
-    width: 1280px;
     margin: 0 auto;
     background-color: whitesmoke;
   }
   footer {
-    width: 1280px;
+    text-align: center;
     margin: 0 auto;
-    background-color: orange;
-    height: 300px;
+    background-color: whitesmoke;
   }
 }
 </style>>

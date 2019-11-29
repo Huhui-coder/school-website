@@ -6,8 +6,38 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    name: 'home',  
+    component: () => import('../views/Home.vue')
+  },
+  {
+    path: '/market',
+    name: 'market',
+    component: () => import('../views/market/Market.vue')
+  },
+  {
+    path: '/marketDetail',
+    name: 'marketDetail',
+    component: () => import('../views/market/MarketDetail.vue')
+  },
+  {
+    path: '/push',
+    name: 'push',
+    component: () => import('../views/Push.vue')
+  },
+  {
+    path: '/complaint',
+    name: 'complaint',
+    component: () => import('../views/Complaint.vue')
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/About.vue')
+  },
+  {
+    path: '/userInfo',
+    name: 'userInfo',
+    component: () => import('../views/UserInfo.vue')
   },
   {
     path: '/login',
@@ -16,7 +46,7 @@ const routes = [
       title: 'Login'
     },
     component: () =>
-      import( /* webpackChunkName: "Login" */ '../views/Login.vue')
+      import('../views/Login.vue')
   },
   {
     path: '/register',
@@ -25,7 +55,7 @@ const routes = [
       title: 'Register'
     },
     component: () =>
-      import( /* webpackChunkName: "Login" */ '../views/Register.vue')
+      import('../views/Register.vue')
   },
   {
     path: '*',
@@ -34,7 +64,7 @@ const routes = [
       title: 'Home'
     },
     component: () =>
-      import( /* webpackChunkName: "Login" */ '../views/Home.vue')
+      import('../views/Home.vue')
   },
   {
     path: '/',
