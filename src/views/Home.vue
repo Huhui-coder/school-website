@@ -37,12 +37,6 @@
           <h2 hw-animate="fadeIn">平台特色</h2>
           <h5 hw-animate="fadeIn">全心全意</h5>
           <div class="item-wrap">
-            <div class="item-list">
-              <a hw-animate="fadeIn" href="#C1">双向效能</a>
-              <a hw-animate="fadeIn" href="#C2">会员制</a>
-              <a hw-animate="fadeIn" href="#C3">信誉评测</a>
-              <a hw-animate="fadeIn" href="#C4">紧急报警</a>
-            </div>
             <div class="item-content">
               <div
                 hw-animate="fadeInUp"
@@ -60,6 +54,12 @@
                 hw-animate="fadeInUp"
                 name="c4"
               >紧急报警Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni eos unde esse fugiat culpa ipsum veniam! Quas ad earum magnam. Dolorem saepe labore mollitia praesentium dolore ab repellat officia sed.</div>
+            </div>
+            <div class="item-list">
+              <a hw-animate="fadeIn" href="#C1">双向效能</a>
+              <a hw-animate="fadeIn" href="#C2">会员制</a>
+              <a hw-animate="fadeIn" href="#C3">信誉评测</a>
+              <a hw-animate="fadeIn" href="#C4">紧急报警</a>
             </div>
           </div>
         </div>
@@ -67,12 +67,6 @@
           <h2 hw-animate="fadeIn">平台特色</h2>
           <h5 hw-animate="fadeIn">全心全意</h5>
           <div class="item-wrap">
-            <div class="item-list">
-              <a hw-animate="fadeIn" href="#C1">双向效能</a>
-              <a hw-animate="fadeIn" href="#C2">会员制</a>
-              <a hw-animate="fadeIn" href="#C3">信誉评测</a>
-              <a hw-animate="fadeIn" href="#C4">紧急报警</a>
-            </div>
             <div class="item-content">
               <div
                 hw-animate="fadeInUp"
@@ -90,6 +84,12 @@
                 hw-animate="fadeInUp"
                 name="c4"
               >紧急报警Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni eos unde esse fugiat culpa ipsum veniam! Quas ad earum magnam. Dolorem saepe labore mollitia praesentium dolore ab repellat officia sed.</div>
+            </div>
+            <div class="item-list">
+              <a hw-animate="fadeIn" href="#C1">双向效能</a>
+              <a hw-animate="fadeIn" href="#C2">会员制</a>
+              <a hw-animate="fadeIn" href="#C3">信誉评测</a>
+              <a hw-animate="fadeIn" href="#C4">紧急报警</a>
             </div>
           </div>
         </div>
@@ -147,6 +147,11 @@ export default {
         justify-content: center;
         .item {
           flex: 1;
+          position: relative;
+          transition: all 0.3s;
+          &:hover {
+            transform: translateY(-10px);
+          }
           .icon {
             margin-bottom: 20px;
           }
@@ -168,8 +173,13 @@ export default {
         .item-content {
           display: flex;
           flex: 1;
+          position: relative;
           & > div {
             padding: 15px;
+            transition: all 0.3s;
+          }
+          & > div:hover {
+            transform: translateY(-10px);
           }
         }
       }
@@ -187,8 +197,14 @@ export default {
         .item-content {
           display: flex;
           flex: 1;
+          position: relative;
+
           & > div {
             padding: 15px;
+            transition: all 0.3s;
+          }
+          & > div:hover {
+            transform: translateY(-10px);
           }
         }
       }

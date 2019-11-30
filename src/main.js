@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import animated from 'animate.css'
 import moment from 'moment' //引入moment 时间格式化插件
-import { Button, Select, Carousel, CarouselItem, Breadcrumb, BreadcrumbItem,Form,FormItem, Input,InputNumber,} from 'element-ui';
+import { Button, Select, Carousel, CarouselItem, Breadcrumb, BreadcrumbItem,Form,FormItem, Input,InputNumber,Option,} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 
@@ -20,6 +20,7 @@ Vue.use(Form)
 Vue.use(Input)
 Vue.use(FormItem)
 Vue.use(InputNumber)
+Vue.use(Option)
 
 
 

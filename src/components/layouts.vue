@@ -36,12 +36,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.router-link-active::after {
+  content: "";
+  position: absolute;
+  display: block;
+  border-bottom: 2px solid #fff;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  left: 0px;
+}
 .wrap {
   width: 100%;
   height: 100%;
   header {
     margin: 0 auto;
     height: 50px;
+    text-align: center;
   }
   .header-wrap {
     color: #fff;
@@ -51,8 +62,9 @@ export default {
     line-height: 50px;
     a {
       color: #fff;
-      padding: 0 10px 0 0;
-  }
+      margin: 0 40px 0 0;
+      position: relative;
+    }
   }
   main {
     margin: 0 auto;

@@ -13,7 +13,6 @@
             <div class="title">我的个人信息</div>
             <div class="content"></div>
           </div>
-
           <div class="wrap">
             <div class="title">我的投递记录</div>
             <div class="list"></div>
