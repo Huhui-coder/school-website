@@ -6,38 +6,80 @@ import axios from './api' // 倒入 api
  */
 
 // 单独导出
-export const test = params => {
+
+
+export const studentLogin = data => {
     return axios({
-        url: '/users/token',
+        url: '/students/login',
+        method: 'post',
+        data
+    })
+}
+export const companyLogin = data => {
+    return axios({
+        url: '/companys/login',
+        method: 'post',
+        data
+    })
+}
+export const studentRegister = data => {
+    return axios({
+        url: '/students/register',
+        method: 'post',
+        data
+    })
+}
+export const companyRegister = data => {
+    return axios({
+        url: '/companys/register',
+        method: 'post',
+        data
+    })
+}
+
+export const editUserInfo = data => {
+    return axios({
+        url: '/students/editUserInfo',
+        method: 'post',
+        data
+    })
+}
+
+export const getUserInfo = params => {
+    return axios({
+        url: '/students/getUserInfo',
         method: 'get',
         params
     })
 }
-  
-export const login = data => {
+export const editCompanyInfo = data => {
     return axios({
-        url: '/users/login',
+        url: '/companys/editCompanyInfo',
         method: 'post',
         data
     })
 }
-
-export const register = data => {
+export const addPost = data => {
     return axios({
-        url: '/users/register',
+        url: '/companys/addPost',
         method: 'post',
         data
     })
-}
-
-export const uploadImg = data => {
+} 
+export const getAllPost = params => {
     return axios({
-        url: '/upload/single',
-        method: 'post',
-        data
+        url: '/companys/allPost',
+        method: 'get',
+        params
     })
 }
-
+export const getCompanyInfo = params => {
+    return axios({
+        url: '/companys/getCompanyInfo',
+        method: 'get',
+        params
+    })
+}
 export const fetchArticle = params => {
     return axios({
         url: '/article',
@@ -92,10 +134,16 @@ export const delectlArticle = params => {
 // 默认全部倒出
 // 根绝需要进行  
 export default {
-    test,
-    login,
-    register,
-    uploadImg,
+    studentLogin,
+    studentRegister,
+    companyLogin,
+    companyRegister,
+    editUserInfo,
+    getUserInfo,
+    editCompanyInfo,
+    getCompanyInfo,
+    addPost,
+    getAllPost,
     fetchArticle,
     addArticle,
     detailArticle,

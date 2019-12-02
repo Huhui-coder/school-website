@@ -14,10 +14,10 @@
             <div @click="active = 'apply'" :class="{active:active === 'apply'}">求职</div>
           </div>
           <div v-if="active === 'recruitment'">
-          <market-list />
+            <market-list />
           </div>
           <div v-else>
-            <apply-list/>
+            <apply-list />
           </div>
         </div>
       </div>
@@ -31,24 +31,18 @@ import marketList from "./components/marketList";
 import applyList from "./components/applyList";
 
 export default {
-  name: "home",
+  name: "market",
   components: {
     layouts,
     marketList,
     applyList
   },
   data: () => ({
-    active:'recruitment'
-    
+    active: "recruitment"
   }),
-  mounted(){
-  },
+  mounted() {},
 
-  methods: {
-    
-    
-  }
-
+  methods: {}
 };
 </script>
 <style lang="less" scoped>
@@ -60,14 +54,14 @@ export default {
   .header {
     padding: 15px;
   }
-  .main{
-    .type-list{
+  .main {
+    .type-list {
       display: flex;
       text-align: center;
-      &>div{
-        flex:1;
+      & > div {
+        flex: 1;
       }
-      .active{
+      .active {
         border-bottom: 2px solid blue;
       }
     }

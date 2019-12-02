@@ -1,15 +1,16 @@
 <template>
   <div class="wrap">
     <header class="header-wrap">
-      <div class="icon">家</div>
+      <div class="icon">家{{getCompanyInfo.role}}</div>
       <div class="link">
         <router-link to="/market">人才市场</router-link>
         <router-link to="/push">每日推送</router-link>
         <router-link to="/complaint">投诉平台</router-link>
         <router-link to="/about">关于我们</router-link>
       </div>
-      <div class="user" v-if="userInfo">
+      <div class="user" v-if="role">
         <router-link to="/userInfo">个人中心</router-link>
+        <el-button type="text" @click="logout()">登出</el-button>
       </div>
       <div class="login" v-else>
         <router-link to="/login">登录/</router-link>
@@ -24,14 +25,37 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from "vuex";
+
 export default {
   name: "layouts",
   data: () => ({
-    userInfo: true
+    role: ""
   }),
+  computed: {
+    ...mapGetters("userInfo", {
+      getUserInfo: "getUserInfo"
+    }),
+    ...mapGetters("companyInfo", {
+      getCompanyInfo: "getCompanyInfo"
+    })
+  },
   mounted() {},
-
-  methods: {}
+  mounted() {
+    this.checkLogined();
+  },
+  methods: {
+    ...mapActions("userInfo", ["asyncsetUserInfo"]),
+    ...mapActions("companyInfo", ["asyncsetCompanyInfo"]),
+    checkLogined() {
+      this.role = this.getUserInfo.role || this.getCompanyInfo.role;
+    },
+    logout() {
+      this.asyncsetUserInfo({});
+      this.asyncsetCompanyInfo({});
+      window.location.href = "/home";
+    }
+  }
 };
 </script>
 

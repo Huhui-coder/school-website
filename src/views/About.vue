@@ -8,9 +8,7 @@
             <el-breadcrumb-item>关于我们</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <div class="main">
-          
-        </div>
+        <div class="main"></div>
       </div>
     </layouts>
   </div>
@@ -22,19 +20,12 @@ import layouts from "@/components/layouts";
 export default {
   name: "home",
   components: {
-    layouts,
+    layouts
   },
-  data: () => ({
-    
-  }),
-  mounted(){
-  },
+  data: () => ({}),
+  mounted() {},
 
-  methods: {
-    
-    
-  }
-
+  methods: {}
 };
 </script>
 <style lang="less" scoped>
@@ -46,8 +37,7 @@ export default {
   .header {
     padding: 15px;
   }
-  .main{
-    
+  .main {
   }
 }
 </style>

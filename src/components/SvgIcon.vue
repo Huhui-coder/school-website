@@ -1,12 +1,12 @@
 <template>
   <svg :class="svgClass" aria-hidden="true">
-    <use :xlink:href="iconName"></use>
+    <use :xlink:href="iconName" />
   </svg>
 </template>
 
 <script>
 export default {
-  name: 'svg-icon',
+  name: "svg-icon",
   props: {
     iconClass: {
       type: String,
@@ -18,19 +18,18 @@ export default {
   },
   computed: {
     iconName() {
-      return `#icon-${this.iconClass}`
+      return `#icon-${this.iconClass}`;
     },
     svgClass() {
       if (this.className) {
-        return 'svg-icon ' + this.className
+        return "svg-icon " + this.className;
       } else {
-        return 'svg-icon'
+        return "svg-icon";
       }
     }
   },
-  methods:{
-  }
-}
+  methods: {}
+};
 </script>
 
 <style scoped>
@@ -41,8 +40,8 @@ export default {
   fill: currentColor;
   overflow: hidden;
 }
-.ml{
-    margin-left: 30px;
-    padding: 2px;
+.ml {
+  margin-left: 30px;
+  padding: 2px;
 }
 </style>

@@ -55,8 +55,7 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-    }
+    onSubmit() {}
   }
 };
 </script>
@@ -70,7 +69,7 @@ export default {
     padding: 15px;
   }
   .main {
-    .description{
+    .description {
       font-size: 13px;
       color: gray;
     }

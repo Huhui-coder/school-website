@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "marketList"
+  name: "applyList"
 };
 </script>
 

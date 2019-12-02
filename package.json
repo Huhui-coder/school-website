@@ -5,13 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "eslint --fix --ext .js,.vue src"
   },
   "dependencies": {
     "animate.css": "^3.7.2",
     "axios": "^0.19.0",
     "core-js": "^3.4.3",
     "element-ui": "^2.13.0",
+    "js-md5": "^0.7.3",
     "moment": "^2.24.0",
     "svg-sprite-loader": "^4.1.6",
     "vue": "^2.6.10",

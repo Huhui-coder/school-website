@@ -4,7 +4,11 @@ import router from './router'
 import store from './store'
 import animated from 'animate.css'
 import moment from 'moment' //引入moment 时间格式化插件
-import { Button, Select, Carousel, CarouselItem, Breadcrumb, BreadcrumbItem,Form,FormItem, Input,InputNumber,Option,} from 'element-ui';
+import md5 from "js-md5";
+import api from "./http/index";
+Vue.use(api);
+
+import { Button, Select, Carousel, CarouselItem, Breadcrumb, BreadcrumbItem,Form,FormItem, Input,InputNumber,Option,Notification,Dialog,DatePicker,Col} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 
@@ -20,7 +24,12 @@ Vue.use(Form)
 Vue.use(Input)
 Vue.use(FormItem)
 Vue.use(InputNumber)
-Vue.use(Option)
+Vue.use(Notification)
+Vue.use(Option) 
+Vue.use(DatePicker) 
+Vue.use(Dialog)  
+Vue.use(Col)  
+
 
 
 
@@ -28,6 +37,8 @@ Vue.use(Option)
 
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment; //挂载到原型链上，直接通过this._moment()使用
+Vue.prototype.$md5 = md5;
+Vue.prototype.$notify = Notification;
 
 
 new Vue({

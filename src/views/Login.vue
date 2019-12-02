@@ -23,7 +23,7 @@
               class="demo-ruleForm"
             >
               <el-form-item label="账号" prop="account">
-                <el-input type="password" v-model="ruleForm.account" autocomplete="off"></el-input>
+                <el-input type="text" v-model="ruleForm.account" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="密码" prop="pass">
                 <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
@@ -42,6 +42,7 @@
 
 <script>
 import layouts from "@/components/layouts";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "register",
@@ -77,15 +78,50 @@ export default {
       },
       rules: {
         account: [{ validator: validateAccount, trigger: "blur" }],
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        pass: [{ validator: validatePass, trigger: "blur" }]
       }
     };
   },
   methods: {
+    ...mapActions("userInfo", [
+      "asyncsetUserInfo" //userInfo.js文件中的actions里的方法
+    ]),
+    ...mapActions("companyInfo", [
+      "asyncsetCompanyInfo" //userInfo.js文件中的actions里的方法
+    ]),
+    login: async function() {
+      const data = {
+        userName: this.ruleForm.account,
+        userPwd: this.$md5(this.ruleForm.pass)
+      };
+      let res;
+      if (this.active === "student") {
+        res = await this.$api.studentLogin(data);
+        this.asyncsetUserInfo(res.result);
+      } else {
+        res = await this.$api.companyLogin(data);
+        this.asyncsetCompanyInfo(res.result);
+      }
+      if (res.status == "0") {
+        this.$notify({
+          title: "成功",
+          message: "登录成功",
+          type: "success"
+        });
+        this.$router.push({
+          path: "/home"
+        });
+      } else {
+        this.$notify.error({
+          title: "失败",
+          message: res.msg
+        });
+      }
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.login();
         } else {
           return false;
         }
@@ -121,11 +157,11 @@ export default {
     .card {
       width: 60%;
       margin: 0 auto;
-      .type-list{
-            margin: 20px;
-          .active{
-              border-bottom: 1px solid blue;
-          }
+      .type-list {
+        margin: 20px;
+        .active {
+          border-bottom: 1px solid blue;
+        }
       }
     }
   }

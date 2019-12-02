@@ -23,19 +23,16 @@
               class="demo-ruleForm"
             >
               <el-form-item label="昵称" prop="name">
-                <el-input type="password" v-model="ruleForm.name" autocomplete="off"></el-input>
+                <el-input type="text" v-model="ruleForm.name" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="账号" prop="account">
-                <el-input type="password" v-model="ruleForm.account" autocomplete="off"></el-input>
+                <el-input type="text" v-model="ruleForm.account" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="密码" prop="pass">
                 <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="确认密码" prop="checkPass">
                 <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-              </el-form-item>
-              <el-form-item label="年龄" prop="age">
-                <el-input v-model.number="ruleForm.age"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -58,22 +55,6 @@ export default {
     layouts
   },
   data() {
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("年龄不能为空"));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error("请输入数字值"));
-        } else {
-          if (value < 18) {
-            callback(new Error("必须年满18岁"));
-          } else {
-            callback();
-          }
-        }
-      }, 1000);
-    };
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
@@ -118,7 +99,6 @@ export default {
       ruleForm: {
         pass: "",
         checkPass: "",
-        age: "",
         name: "",
         account: ""
       },
@@ -126,16 +106,42 @@ export default {
         name: [{ validator: validateName, trigger: "blur" }],
         account: [{ validator: validateAccount, trigger: "blur" }],
         pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        age: [{ validator: checkAge, trigger: "blur" }]
+        checkPass: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
   },
   methods: {
+    resgist: async function() {
+      const data = {
+        userName: this.ruleForm.account,
+        userPwd: this.$md5(this.ruleForm.pass)
+      };
+      let res;
+      if (this.active === "student") {
+        res = await this.$api.studentRegister(data);
+      } else {
+        res = await this.$api.companyRegister(data);
+      }
+      if (res.status == "0") {
+        this.$notify({
+          title: "成功",
+          message: "注册成功",
+          type: "success"
+        });
+        this.$router.push({
+          path: "/login"
+        });
+      } else {
+        this.$notify.error({
+          title: "失败",
+          message: res.msg
+        });
+      }
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.resgist();
         } else {
           return false;
         }
@@ -171,11 +177,11 @@ export default {
     .card {
       width: 60%;
       margin: 0 auto;
-      .type-list{
-            margin: 20px;
-          .active{
-              border-bottom: 1px solid blue;
-          }
+      .type-list {
+        margin: 20px;
+        .active {
+          border-bottom: 1px solid blue;
+        }
       }
     }
   }
