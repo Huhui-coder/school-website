@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <header class="header-wrap">
-      <div class="icon">家{{getCompanyInfo.role}}</div>
+      <div class="icon">家</div>
       <div class="link">
         <router-link to="/market">人才市场</router-link>
         <router-link to="/push">每日推送</router-link>

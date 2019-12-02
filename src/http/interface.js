@@ -66,13 +66,13 @@ export const addPost = data => {
         data
     })
 } 
-export const getAllPost = params => {
+export const getPostList = params => {
     return axios({
-        url: '/companys/allPost',
+        url: '/companys/postList',
         method: 'get',
         params
     })
-}
+} 
 export const getCompanyInfo = params => {
     return axios({
         url: '/companys/getCompanyInfo',
@@ -80,57 +80,46 @@ export const getCompanyInfo = params => {
         params
     })
 }
-export const fetchArticle = params => {
+export const postDetail = params => {
     return axios({
-        url: '/article',
-        method: 'get',
-        params
-    })
-}
-export const fetchArticleList = params => {
-    return axios({
-        url: '/article/typeList',
-        method: 'get',
-        params
-    })
-}
-export const editArticle = data => {
-    return axios({
-        url: '/article/edit',
-        method: 'post',
-        data
-    })
-}
-export const filterArticleList = params => {
-    return axios({
-        url: '/article/type',
-        method: 'get',
-        params
-    })
-}
-export const addArticle = data => {
-    return axios({
-        url: '/users/addArticle',
-        method: 'post',
-        data
-    })
-}
-
-export const detailArticle = params => {
-    return axios({
-        url: '/article/detail',
+        url: '/companys/postDetail',
         method: 'get',
         params
     })
 }
 
-export const delectlArticle = params => {
+
+export const editPost = data => {
     return axios({
-        url: '/article/delect',
+        url: '/companys/edit',
+        method: 'post',
+        data
+    })
+}  
+export const delPost = params => {
+    return axios({
+        url: '/companys/delPost',
         method: 'get',
         params
     })
 }
+export const allPost = params => {
+    return axios({
+        url: '/companys/allPost',
+        method: 'get',
+        params
+    })
+}
+
+
+
+
+
+
+
+
+
+
 // 默认全部倒出
 // 根绝需要进行  
 export default {
@@ -142,13 +131,10 @@ export default {
     getUserInfo,
     editCompanyInfo,
     getCompanyInfo,
+    postDetail,
     addPost,
-    getAllPost,
-    fetchArticle,
-    addArticle,
-    detailArticle,
-    fetchArticleList,
-    filterArticleList,
-    editArticle,
-    delectlArticle
+    getPostList,
+    editPost,
+    delPost,
+    allPost
 }

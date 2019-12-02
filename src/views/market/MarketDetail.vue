@@ -9,19 +9,23 @@
             <el-breadcrumb-item>招聘详情</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <div class="wrap">
-          <div class="title">1）招聘信息标题</div>
+        <div class="wrap" v-for="item in list" :key="item.postId">
+          <div class="title">招聘信息标题{{item.title}}</div>
           <div class="info">
-            <div>2）兼职类型</div>
-            <div>（3）招聘职位</div>
-            <div>4）薪资范围</div>
-            <div>（5）招聘人数</div>
-            <div>6）工作时间（</div>
-            <div>7）工作地点</div>
+            <div>兼职类型:{{item.type}}</div>
+            <div>招聘职位:{{item.post}}</div>
+            <div>薪资范围:{{item.range}}</div>
+            <div>招聘人数:{{item.number}}</div>
+            <div>工作时间:{{item.fromTime | dateformat}}</div>
+            <div>工作时间:{{item.toTime | dateformat}}</div>
+            <div>工作地点:{{item.location}}</div>
           </div>
-          <div class="main">详情</div>
+          <div class="main">
+            详情:
+            <p>{{item.detail}}</p>
+          </div>
           <div class="footer">
-            <div class="time">(8）发布时间</div>
+            <div class="time">发布时间:{{item.now}}</div>
           </div>
         </div>
       </div>
@@ -31,16 +35,40 @@
 
 <script>
 import layouts from "@/components/layouts";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "home",
   components: {
     layouts
   },
-  data: () => ({}),
-  mounted() {},
+  data: () => ({
+    list: []
+  }),
+  mounted() {
+    this.fetch();
+  },
+  computed: {
+    postId() {
+      return this.$route.query.postId;
+    },
+    companyId() {
+      return this.$route.query.companyId;
+    }
+  },
 
-  methods: {}
+  methods: {
+    fetch: async function() {
+      //获取单个岗位需求的详情
+      let params = {
+        companyId: this.companyId,
+        postId: this.postId
+      };
+      let res = await this.$api.postDetail(params);
+      let result = res.result;
+      this.list = result;
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -56,16 +84,19 @@ export default {
     display: row;
     background-color: #fff;
     padding: 10px;
-    margin: 10px;
     .title {
       font-size: 19px;
       font-weight: bolder;
       color: #000;
+      text-align: center;
     }
     .info {
       font-size: 16px;
       font-weight: bolder;
       color: gray;
+    }
+    .main {
+      min-height: 300px;
     }
     .footer {
       font-size: 14px;

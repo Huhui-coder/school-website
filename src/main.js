@@ -40,6 +40,15 @@ Vue.prototype.$moment = moment; //挂载到原型链上，直接通过this._mome
 Vue.prototype.$md5 = md5;
 Vue.prototype.$notify = Notification;
 
+Vue.filter("dateformat", function(dataStr, pattern = "YYYY-MM-DD hh:mm:ss") {
+  //将moment注册为全局过滤器
+  if (dataStr) {
+    return moment(dataStr).format(pattern);
+  } else {
+    return dataStr;
+  }
+});
+
 
 new Vue({
   router,

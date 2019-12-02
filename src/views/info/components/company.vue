@@ -51,16 +51,24 @@ export default {
     ...mapGetters("companyInfo", {
       getCompanyInfo: "getCompanyInfo",
       getCompanyPost: "getCompanyPost"
-    })
+    }),
+     companyId (){
+      return this.getCompanyInfo.info.companyId 
+    },
   },
   methods: {
-    ...mapActions("companyInfo", ["asyncsetCompanyInfo"]),
+    ...mapActions("companyInfo", ["asyncsetCompanyInfo","asyncsetCompanyPost"]),
     open() {
       this.$emit("openModel", "company");
     },
     openNew() {
       this.$emit("openNewModel", "company");
-    }
+    },
+    getPostList: async function() {
+      let obj = { companyId: this.companyId };
+      let res = await this.$api.getPostList(obj);
+      this.asyncsetCompanyPost(res.result);
+    },
   }
 };
 </script>

@@ -1,20 +1,21 @@
 <template>
   <div>
-    <div class="wrap">
-      <div class="title">1）招聘信息标题</div>
+    <div class="wrap" v-for="item in list" :key="item._id">
+      <div class="title">招聘信息标题{{item.title}}</div>
       <div class="info">
-        <div>2）兼职类型</div>
-        <div>（3）招聘职位</div>
-        <div>4）薪资范围</div>
-        <div>（5）招聘人数</div>
-        <div>6）工作时间（</div>
-        <div>7）工作地点</div>
+        <div>兼职类型{{item.type}}</div>
+        <div>招聘职位{{item.post}}</div>
+        <div>薪资范围{{item.range}}</div>
+        <div>招聘人数{{item.number}}</div>
+        <div>工作时间{{item.fromTime | dateformat}}</div>
+        <div>工作时间{{item.toTime | dateformat}}</div>
+        <div>工作地点{{item.location}}</div>
       </div>
       <div class="footer">
         <div class="detail">
-          <router-link to="/marketDetail">查看详情</router-link>
+          <router-link :to="{path:'/marketDetail',query:{ companyId:item.companyId,postId:item.postId}}">查看详情</router-link>
         </div>
-        <div class="time">(8）发布时间</div>
+        <div class="time">发布时间:{{item.now}}</div>
       </div>
     </div>
   </div>
@@ -22,8 +23,24 @@
 
 <script>
 export default {
-  name: "marketList"
+  name: "marketList",
+  data (){
+    return {
+      list:[]
+    }
+  },
+  mounted (){
+    this.fetch()
+  },
+  methods:{
+    fetch: async function(){
+      let res = await this.$api.allPost();
+      this.list =  res.result
+    },
+
+  }
 };
+
 </script>
 
 <style lang="less" scoped>

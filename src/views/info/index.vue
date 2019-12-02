@@ -64,7 +64,7 @@
       width="70%"
       :before-close="handleClose"
     >
-      <el-form ref="form" :model="form" label-width="100px">
+      <el-form ref="form" :model="NCform" label-width="100px">
         <el-form-item label="招聘信息标题">
           <el-input v-model="NCform.title"></el-input>
         </el-form-item>
@@ -155,7 +155,7 @@ export default {
     NCdialogVisible: false,
   }),
   mounted() {
-      this.AllPost()
+      this.getPostList()
   },
   computed: {
     ...mapGetters("userInfo", {
@@ -171,7 +171,7 @@ export default {
       return this.getUserInfo.info.studentId
     },
     companyId (){
-      return this.getUserInfo.info.companyId
+      return this.getCompanyInfo.info.companyId 
     },
   },
   methods: {
@@ -197,12 +197,12 @@ export default {
         companyId: this.companyId
       });
       let res = await this.$api.addPost(params);
-      this.AllPost();
+      this.getPostList();
       this.NCdialogVisible = false
     },
-    AllPost: async function() {
+    getPostList: async function() {
       let obj = { companyId: this.companyId };
-      let res = await this.$api.getAllPost(obj);
+      let res = await this.$api.getPostList(obj);
       this.asyncsetCompanyPost(res.result);
     },
     editUserInfo: async function() {
