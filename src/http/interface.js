@@ -65,14 +65,28 @@ export const addPost = data => {
         method: 'post',
         data
     })
-} 
+}
+export const addApply = data => {
+    return axios({
+        url: '/students/addApply',
+        method: 'post',
+        data
+    })
+}
 export const getPostList = params => {
     return axios({
         url: '/companys/postList',
         method: 'get',
         params
     })
-} 
+}
+export const getApplyList = params => {
+    return axios({
+        url: '/students/applyList',
+        method: 'get',
+        params
+    })
+}
 export const getCompanyInfo = params => {
     return axios({
         url: '/companys/getCompanyInfo',
@@ -88,6 +102,22 @@ export const postDetail = params => {
     })
 }
 
+export const myApplyList = params => {
+    return axios({
+        url: '/companys/myApplyList',
+        method: 'get',
+        params
+    })
+}
+
+export const applyDetail = params => {
+    return axios({
+        url: '/students/applyDetail',
+        method: 'get',
+        params
+    })
+}
+
 
 export const editPost = data => {
     return axios({
@@ -95,10 +125,25 @@ export const editPost = data => {
         method: 'post',
         data
     })
-}  
+}
+export const editApply = data => {
+    return axios({
+        url: '/students/edit',
+        method: 'post',
+        data
+    })
+}
 export const delPost = params => {
     return axios({
         url: '/companys/delPost',
+        method: 'get',
+        params
+    })
+}
+
+export const delApply = params => {
+    return axios({
+        url: '/students/delApply',
         method: 'get',
         params
     })
@@ -111,12 +156,28 @@ export const allPost = params => {
     })
 }
 
+export const allApply = params => {
+    return axios({
+        url: '/students/allApply',
+        method: 'get',
+        params
+    })
+}
+export const delivery = params => {
+    return axios({
+        url: '/students/delivery',
+        method: 'get',
+        params
+    })
+}
 
-
-
-
-
-
+export const myPostList = params => {
+    return axios({
+        url: '/students/myPostList',
+        method: 'get',
+        params
+    })
+}
 
 
 
@@ -133,8 +194,17 @@ export default {
     getCompanyInfo,
     postDetail,
     addPost,
+    addApply,
     getPostList,
+    getApplyList,
+    applyDetail,
     editPost,
+    editApply,
     delPost,
-    allPost
+    delApply,
+    allPost,
+    allApply,
+    delivery,
+    myPostList,
+    myApplyList
 }

@@ -10,6 +10,7 @@
       </div>
       <div class="user" v-if="role">
         <router-link to="/userInfo">个人中心</router-link>
+        <span>您好({{getUserInfo.role?'学生':'商家'}})</span>
         <el-button type="text" @click="logout()">登出</el-button>
       </div>
       <div class="login" v-else>
@@ -33,12 +34,6 @@ export default {
     role: ""
   }),
   computed: {
-    ...mapGetters("userInfo", {
-      getUserInfo: "getUserInfo"
-    }),
-    ...mapGetters("companyInfo", {
-      getCompanyInfo: "getCompanyInfo"
-    })
   },
   mounted() {},
   mounted() {
@@ -49,10 +44,11 @@ export default {
     ...mapActions("companyInfo", ["asyncsetCompanyInfo"]),
     checkLogined() {
       this.role = this.getUserInfo.role || this.getCompanyInfo.role;
+      localStorage.setItem('role',this.role)
     },
     logout() {
-      this.asyncsetUserInfo({});
-      this.asyncsetCompanyInfo({});
+      this.asyncsetUserInfo({info:{studentId:''}});
+      this.asyncsetCompanyInfo({info:{studentId:''}});
       window.location.href = "/home";
     }
   }

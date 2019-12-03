@@ -8,7 +8,7 @@
             <el-breadcrumb-item>个人中心</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <component :is="active" @openModel="onOpenModel" @openNewModel="onOpenNewModel"/>
+        <component :is="active" @openModel="onOpenModel" @openNewModel="onOpenNewModel" />
       </div>
     </layouts>
     <el-dialog
@@ -111,6 +111,53 @@
         <el-button type="primary" @click="addPost()">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="编辑求职申请"
+      :visible.sync="NSdialogVisible"
+      width="70%"
+      :before-close="handleClose"
+    >
+      <el-form ref="form" :model="NSform" label-width="100px">
+        <el-form-item label="姓名">
+          <el-input v-model="NSform.name"></el-input>
+        </el-form-item>
+        <el-form-item label="联系方式">
+          <el-input v-model="NSform.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="应聘职位">
+          <el-input v-model="NSform.post"></el-input>
+        </el-form-item>
+        <el-form-item label="应聘地区">
+          <el-input v-model="NSform.area"></el-input>
+        </el-form-item>
+        <el-form-item label="理想薪资">
+          <el-input v-model="NSform.range"></el-input>
+        </el-form-item>
+        <el-form-item label="空余时间">
+          <el-col :span="11">
+            <el-date-picker
+              type="date"
+              placeholder="选择日期"
+              v-model="NSform.fromTime"
+              style="width: 100%;"
+            ></el-date-picker>
+          </el-col>
+          <el-col class="line" :span="2" style="text-align:center">-</el-col>
+          <el-col :span="11">
+            <el-date-picker
+              type="date"
+              placeholder="选择日期"
+              v-model="NSform.toTime"
+              style="width: 100%;"
+            ></el-date-picker>
+          </el-col>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="NSdialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addApply()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -150,33 +197,42 @@ export default {
       location: "6",
       detail: "7"
     },
+    NSform: {
+      name: "1",
+      phone: "1",
+      post: "1",
+      area: "1",
+      range: "1",
+      fromTime: "",
+      toTime: ""
+    },
     SdialogVisible: false,
     CdialogVisible: false,
     NCdialogVisible: false,
+    NSdialogVisible: false,
+    role: localStorage.getItem("role")
   }),
   mounted() {
-      this.getPostList()
+    this.getPostList();
+    this.getApplyList()
   },
   computed: {
-    ...mapGetters("userInfo", {
-      getUserInfo: "getUserInfo"
-    }),
-    ...mapGetters("companyInfo", {
-      getCompanyInfo: "getCompanyInfo"
-    }),
     active() {
       return this.getCompanyInfo.role || this.getUserInfo.role;
     },
-    studentId (){
-      return this.getUserInfo.info.studentId
+    studentId() {
+      return this.getUserInfo.info.studentId;
     },
-    companyId (){
-      return this.getCompanyInfo.info.companyId 
-    },
+    companyId() {
+      return this.getCompanyInfo.info.companyId;
+    }
   },
   methods: {
-    ...mapActions("userInfo", ["asyncsetUserInfo"]),
-    ...mapActions("companyInfo", ["asyncsetCompanyInfo","asyncsetCompanyPost"]),
+    ...mapActions("userInfo", ["asyncsetUserInfo","asyncsetStudentApply"]),
+    ...mapActions("companyInfo", [
+      "asyncsetCompanyInfo",
+      "asyncsetCompanyPost"
+    ]),
     onOpenModel(value) {
       if (value === "company") {
         this.CdialogVisible = true;
@@ -185,11 +241,10 @@ export default {
       }
     },
     onOpenNewModel(value) {
-      console.log(value);
       if (value === "company") {
         this.NCdialogVisible = true;
       } else {
-        // this.SdialogVisible = true;
+        this.NSdialogVisible = true;
       }
     },
     addPost: async function() {
@@ -198,12 +253,29 @@ export default {
       });
       let res = await this.$api.addPost(params);
       this.getPostList();
-      this.NCdialogVisible = false
+      this.NCdialogVisible = false;
+    },
+    addApply: async function() {
+      let params = Object.assign(this.NSform, {
+        studentId: this.studentId
+      });
+      let res = await this.$api.addApply(params);
+      this.getApplyList();
+      this.NSdialogVisible = false;
     },
     getPostList: async function() {
-      let obj = { companyId: this.companyId };
-      let res = await this.$api.getPostList(obj);
-      this.asyncsetCompanyPost(res.result);
+      if (this.role === "company") {
+        let obj = { companyId: this.companyId };
+        let res = await this.$api.getPostList(obj);
+        this.asyncsetCompanyPost(res.result);
+      }
+    },
+    getApplyList: async function() {
+      if (this.role === "student") {
+        let obj = { studentId: this.studentId };
+        let res = await this.$api.getApplyList(obj);
+        this.asyncsetStudentApply(res.result);
+      }
     },
     editUserInfo: async function() {
       let params = Object.assign(this.form, {

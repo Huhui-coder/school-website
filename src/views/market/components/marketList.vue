@@ -35,7 +35,8 @@ export default {
   methods:{
     fetch: async function(){
       let res = await this.$api.allPost();
-      this.list =  res.result
+      res.result = [].concat.apply([],res.result)
+      this.list =  res.result.filter((item)=>item !== null)
     },
 
   }

@@ -1,5 +1,5 @@
 const state = {
-  companyInfo: JSON.parse(localStorage.getItem('companyInfo')) || {},
+  companyInfo: JSON.parse(localStorage.getItem('companyInfo')) || {info:{companyId:''}},
   companyPost: []
 };
 const getters = {

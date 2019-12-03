@@ -31,7 +31,7 @@
       width="70%"
       :before-close="handleClose"
     >
-    <p style="margin:10px">*发表成功后，便不可修改细节，只能更改标题</p>
+      <p style="margin:10px">*发表成功后，便不可修改细节，只能更改标题</p>
       <el-form ref="form" :model="NCform" label-width="100px">
         <el-form-item label="招聘信息标题">
           <el-input v-model="NCform.title"></el-input>
@@ -82,17 +82,13 @@
       </span>
     </el-dialog>
 
-    <el-dialog
-  title="删除提示"
-  :visible.sync="dialogVisible"
-  width="30%"
-  :before-close="handleClose">
-  <span>是否确定删除该条岗位信息</span>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="del()">确 定</el-button>
-  </span>
-</el-dialog>
+    <el-dialog title="删除提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <span>是否确定删除该条岗位信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="del()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -103,9 +99,9 @@ export default {
   name: "company",
   props: ["list"],
   data: () => ({
-    NCdialogVisible:false,
-    dialogVisible:false,
-    currentPostId:'',
+    NCdialogVisible: false,
+    dialogVisible: false,
+    currentPostId: "",
     NCform: {
       title: "1",
       type: "2",
@@ -116,65 +112,64 @@ export default {
       toTime: "",
       location: "6",
       detail: "7"
-    },
+    }
   }),
-  computed:{
-    ...mapGetters("companyInfo", {
-      getCompanyInfo: "getCompanyInfo"
-    }),
-    companyId (){
-      return this.getCompanyInfo.info.companyId 
-    },
+  computed: {
+    companyId() {
+      return this.getCompanyInfo.info.companyId;
+    }
   },
   mounted() {},
-  methods:{
-    ...mapActions("companyInfo", ["asyncsetCompanyInfo","asyncsetCompanyPost"]),
-    showdelModel (id){
-      this.currentPostId = id
-      this.dialogVisible = true
+  methods: {
+    ...mapActions("companyInfo", [
+      "asyncsetCompanyInfo",
+      "asyncsetCompanyPost"
+    ]),
+    showdelModel(id) {
+      this.currentPostId = id;
+      this.dialogVisible = true;
     },
-    del: async function(){
-      let params ={
+    del: async function() {
+      let params = {
         companyId: this.companyId,
-        postId:this.currentPostId
+        postId: this.currentPostId
       };
-      let res = await this.$api.delPost(params);
-      this.getPostList()
-      this.dialogVisible = false
-      console.log('确定删除')
+      let res = await this.$api.delApply(params);
+      this.getPostList();
+      this.dialogVisible = false;
     },
-    handleClose () {
-      this.NCdialogVisible = false
-      this.dialogVisible = false
+    handleClose() {
+      this.NCdialogVisible = false;
+      this.dialogVisible = false;
     },
-    open : async function(id) {
-      this.currentPostId = id
-      //获取单个岗位需求的详情 
-      let params ={
+    open: async function(id) {
+      this.currentPostId = id;
+      //获取单个岗位需求的详情
+      let params = {
         companyId: this.companyId,
-        postId:id
+        postId: id
       };
       let res = await this.$api.postDetail(params);
-      let result = res.result[0]
-      this.NCform = {...result}
-      this.NCdialogVisible = true
+      let result = res.result[0];
+      this.NCform = { ...result };
+      this.NCdialogVisible = true;
     },
-    editPost:async function() {
-      //编辑单个岗位需求的详情 
-      let data ={
+    editPost: async function() {
+      //编辑单个岗位需求的详情
+      let data = {
         companyId: this.companyId,
-        postId:this.currentPostId,
+        postId: this.currentPostId,
         ...this.NCform
       };
       let res = await this.$api.editPost(data);
-      this.getPostList()
-      this.NCdialogVisible = false
+      this.getPostList();
+      this.NCdialogVisible = false;
     },
     getPostList: async function() {
       let obj = { companyId: this.companyId };
       let res = await this.$api.getPostList(obj);
       this.asyncsetCompanyPost(res.result);
-    },
+    }
   }
 };
 </script>

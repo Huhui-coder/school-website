@@ -19,7 +19,13 @@
       </div>
       <div class="wrap">
         <div class="title">我的投递记录</div>
-        <div class="list"></div>
+        <el-button type="text" @click="toMarket()">去招聘市场</el-button>
+        <my-post-list :list="data"></my-post-list>
+        <div class="title">我的求职申请记录</div>
+        <el-button type="text" @click="openNew()">发布求职申请</el-button>
+        <div class="list">
+          <apply-list :list="getUserApplyList"></apply-list>
+        </div>
       </div>
     </div>
   </div>
@@ -27,20 +33,56 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
+import applyList from "./applyList";
+import myPostList from './myPostList'
+import { async } from 'q';
 
 export default {
   name: "company",
-  data: () => ({}),
-  mounted() {},
+  components: {
+    applyList,
+    myPostList
+  },
+  data: () => ({
+    data:[]
+  }),
+  mounted() {
+    this.fetch()
+  },
   computed: {
     ...mapGetters("userInfo", {
-      getUserInfo: "getUserInfo"
-    })
+      getUserApplyList: "getUserApplyList"
+    }),
+    studentId() {
+      return this.getUserInfo.info.studentId;
+    }
   },
   methods: {
     ...mapActions("userInfo", ["asyncsetUserInfo"]),
+    toMarket (){
+      this.$router.push({
+          path: "/market"
+        });
+    },
     open() {
       this.$emit("openModel", "student");
+    },
+    openNew() {
+      this.$emit("openNewModel", "student");
+    },
+    fetch : async function(){
+      let obj = { studentId: this.studentId };  
+      let res = await this.$api.myPostList(obj);
+      let postIds = res.result.map((item)=>item.postId)
+      let result = await this.$api.allPost(obj);
+      result.result = [].concat.apply([],result.result)
+      let r = []
+      for (let index = 0; index < postIds.length; index++) {
+       r.push(result.result.filter((item)=>item.postId === postIds[index]))
+      }
+      r = [].concat.apply([],r)
+      this.data = r
+      console.log(r)
     }
   }
 };

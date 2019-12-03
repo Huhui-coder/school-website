@@ -10,6 +10,12 @@
           </el-breadcrumb>
         </div>
         <div class="wrap" v-for="item in list" :key="item.postId">
+          <div class="hasDelivery" v-if="role === 'student' && !hasDelivery" @click="delivery()">
+            <svg-icon :icon-class="'delivery'"></svg-icon>
+          </div>
+          <div class="delivery" v-if="role === 'student' && hasDelivery">
+            <svg-icon :icon-class="'hasDelivery'"></svg-icon>
+          </div>
           <div class="title">招聘信息标题{{item.title}}</div>
           <div class="info">
             <div>兼职类型:{{item.type}}</div>
@@ -43,10 +49,12 @@ export default {
     layouts
   },
   data: () => ({
-    list: []
+    list: [],
+    hasDelivery: false //已经投递
   }),
   mounted() {
     this.fetch();
+    this.checkHasDelivery();
   },
   computed: {
     postId() {
@@ -54,6 +62,12 @@ export default {
     },
     companyId() {
       return this.$route.query.companyId;
+    },
+    role() {
+      return this.getUserInfo.role;
+    },
+    studentId() {
+      return this.getUserInfo.info.studentId;
     }
   },
 
@@ -67,6 +81,30 @@ export default {
       let res = await this.$api.postDetail(params);
       let result = res.result;
       this.list = result;
+    },
+    checkHasDelivery: async function() {
+      let obj = { companyId: this.companyId };
+      let playload = await this.$api.getCompanyInfo(obj);
+      //查看是否已经投递了
+      if (playload.result.data.info.receiveId.length > 0) {
+        this.hasDelivery = playload.result.data.info.receiveId.every(
+          item => item.studentId === this.studentId
+        );
+        console.log(this.hasDelivery)
+      } else {
+        this.hasDelivery = false;
+        console.log(this.hasDelivery)
+      }
+    },
+    delivery: async function() {
+      //投递
+      let params = {
+        studentId: this.studentId,
+        companyId: this.companyId,
+        postId: this.postId
+      };
+      let res = await this.$api.delivery(params);
+      this.hasDelivery = true;
     }
   }
 };
@@ -84,6 +122,19 @@ export default {
     display: row;
     background-color: #fff;
     padding: 10px;
+    position: relative;
+    .hasDelivery,
+    .delivery {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgb(83, 83, 146);
+    }
     .title {
       font-size: 19px;
       font-weight: bolder;

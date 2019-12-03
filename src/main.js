@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from '@/common/vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -24,17 +24,11 @@ Vue.use(Form)
 Vue.use(Input)
 Vue.use(FormItem)
 Vue.use(InputNumber)
-Vue.use(Notification)
+Vue.component(Notification)
 Vue.use(Option) 
 Vue.use(DatePicker) 
 Vue.use(Dialog)  
 Vue.use(Col)  
-
-
-
-
-
-
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment; //挂载到原型链上，直接通过this._moment()使用
 Vue.prototype.$md5 = md5;

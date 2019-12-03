@@ -16,20 +16,20 @@
       </div>
       <div class="wrap">
         <div class="title">
+          我的人才记录
+          <el-button type="text" @click="toMarket()">去招聘市场</el-button>
+        </div>
+        <div class="list">
+          <my-apply-list :list="data"></my-apply-list>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="title">
           我的招聘记录
           <el-button type="text" @click="openNew()">发布新的岗位</el-button>
         </div>
         <div class="list">
           <post-list :list="getCompanyPost"></post-list>
-        </div>
-      </div>
-      <div class="wrap">
-        <div class="title">
-          我的人才记录
-          <!-- <el-button type="text" @click="openNew()">发布新的岗位</el-button> -->
-        </div>
-        <div class="list">
-          <!-- <post-list :list="getCompanyPost"></post-list> -->
         </div>
       </div>
     </div>
@@ -39,25 +39,53 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 import postList from "./postList";
+import myApplyList from "./myApplyList";
 
 export default {
   name: "company",
   components: {
-    postList
+    postList,
+    myApplyList
   },
-  data: () => ({}),
-  mounted() {},
+  data: () => ({
+    data: []
+  }),
+  mounted() {
+    this.fetch();
+  },
   computed: {
     ...mapGetters("companyInfo", {
-      getCompanyInfo: "getCompanyInfo",
       getCompanyPost: "getCompanyPost"
     }),
-     companyId (){
-      return this.getCompanyInfo.info.companyId 
-    },
+    companyId() {
+      return this.getCompanyInfo.info.companyId;
+    }
   },
   methods: {
-    ...mapActions("companyInfo", ["asyncsetCompanyInfo","asyncsetCompanyPost"]),
+    ...mapActions("companyInfo", [
+      "asyncsetCompanyInfo",
+      "asyncsetCompanyPost"
+    ]),
+    toMarket() {
+      this.$router.push({
+        path: "/market"
+      });
+    },
+    fetch: async function() {
+      //获取所有投递过这个公司的学生Id
+      let obj = { companyId: this.companyId };
+      let res = await this.$api.myApplyList(obj);
+      let studentIds = res.result.map(item => item.studentId);
+      let r = [];
+      //根据学生ID查详情
+      for (let index = 0; index < studentIds.length; index++) {
+        let result = await this.$api.getUserInfo({
+          studentId: studentIds[index]
+        });
+        r.push(result.result.data.info);
+      }
+      this.data = r;
+    },
     open() {
       this.$emit("openModel", "company");
     },
@@ -68,7 +96,7 @@ export default {
       let obj = { companyId: this.companyId };
       let res = await this.$api.getPostList(obj);
       this.asyncsetCompanyPost(res.result);
-    },
+    }
   }
 };
 </script>

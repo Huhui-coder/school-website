@@ -18,6 +18,11 @@ const routes = [
     path: '/marketDetail',
     name: 'marketDetail',
     component: () => import('../views/market/MarketDetail.vue')
+  }, 
+  {
+    path: '/applyDetail',
+    name: 'applyDetail',
+    component: () => import('../views/market/applyDetail.vue')
   },
   {
     path: '/push',
