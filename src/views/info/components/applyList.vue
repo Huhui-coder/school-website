@@ -28,21 +28,22 @@
       width="70%"
       :before-close="handleClose"
     >
+      <p style="margin:10px">*发表成功后，便不可修改细节，只能更改职位</p>
       <el-form ref="form" :model="NSform" label-width="100px">
         <el-form-item label="姓名">
-          <el-input v-model="NSform.name"></el-input>
+          <el-input v-model="NSform.name" disabled></el-input>
         </el-form-item>
         <el-form-item label="联系方式">
-          <el-input v-model="NSform.phone"></el-input>
+          <el-input v-model="NSform.phone" disabled></el-input>
         </el-form-item>
         <el-form-item label="应聘职位">
           <el-input v-model="NSform.post"></el-input>
         </el-form-item>
         <el-form-item label="应聘地区">
-          <el-input v-model="NSform.area"></el-input>
+          <el-input v-model="NSform.area" disabled></el-input>
         </el-form-item>
         <el-form-item label="理想薪资">
-          <el-input v-model="NSform.range"></el-input>
+          <el-input v-model="NSform.range" disabled></el-input>
         </el-form-item>
         <el-form-item label="空余时间">
           <el-col :span="11">
@@ -51,6 +52,7 @@
               placeholder="选择日期"
               v-model="NSform.fromTime"
               style="width: 100%;"
+              disabled
             ></el-date-picker>
           </el-col>
           <el-col class="line" :span="2" style="text-align:center">-</el-col>
@@ -60,6 +62,7 @@
               placeholder="选择日期"
               v-model="NSform.toTime"
               style="width: 100%;"
+              disabled
             ></el-date-picker>
           </el-col>
         </el-form-item>
@@ -71,7 +74,7 @@
     </el-dialog>
 
     <el-dialog title="删除提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-      <span>是否确定删除该条岗位信息</span>
+      <span>是否确定删除该条求职信息</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="del()">确 定</el-button>

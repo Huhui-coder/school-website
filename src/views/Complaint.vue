@@ -14,21 +14,23 @@
             加强对虚假广告和不良商家的管理，以防学生的利益受到损失。
           </p>
           <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="公司名称">
-              <el-input v-model="form.name"></el-input>
-            </el-form-item>
-            <el-form-item label="投诉类型">
-              <el-select v-model="form.type" placeholder="请选择活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+            <el-form-item label="公司名称" props="name">
+              <el-select v-model="form.name" placeholder="请选择公司名称">
+                <el-option v-for="item in allCompanyList" :key="item" :value="item"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="详细说明">
+            <el-form-item label="投诉类型" props="type">
+              <el-select v-model="form.type" placeholder="请选择投诉类型">
+                <el-option label="虚假广告" value="fake"></el-option>
+                <el-option label="诈骗" value="scam"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="详细说明" props="desc">
               <el-input type="textarea" v-model="form.desc"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">立即创建</el-button>
-              <el-button>取消</el-button>
+              <el-button @click="cancel()">取消</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -39,6 +41,7 @@
 
 <script>
 import layouts from "@/components/layouts";
+import { async } from "q";
 
 export default {
   name: "complaint",
@@ -51,11 +54,34 @@ export default {
         name: "",
         type: [],
         desc: ""
-      }
+      },
+      allCompanyList: []
     };
   },
+  mounted() {
+    this.fetch();
+  },
   methods: {
-    onSubmit() {}
+    fetch: async function() {
+      let res = await this.$api.allCompanyList();
+      let result = [];
+      result = res.result.map(item => item.companyName);
+      result = result.filter(item => item !== undefined && item !== "");
+      this.allCompanyList = result;
+    },
+    onSubmit() {
+      setTimeout(() => {
+        this.$notify({
+          title: "成功",
+          message: "举报成功",
+          type: "success"
+        });
+      }, 300);
+    },
+    cancel() {
+      //强制重置，因为 this.$refs['form'].resetFields() 没生效
+      this.form = {}
+    }
   }
 };
 </script>

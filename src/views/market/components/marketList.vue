@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="wrap" v-for="item in list" :key="item._id">
-      <div class="title">招聘信息标题{{item.title}}</div>
+      <div class="title">{{item.title}}</div>
       <div class="info">
         <div>兼职类型{{item.type}}</div>
         <div>招聘职位{{item.post}}</div>

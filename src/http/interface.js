@@ -179,6 +179,15 @@ export const myPostList = params => {
     })
 }
 
+//获取所有的公司
+export const allCompanyList = params => {
+    return axios({
+        url: '/companys',
+        method: 'get',
+        params
+    })
+}
+
 
 
 // 默认全部倒出
@@ -206,5 +215,6 @@ export default {
     allApply,
     delivery,
     myPostList,
-    myApplyList
+    myApplyList,
+    allCompanyList
 }

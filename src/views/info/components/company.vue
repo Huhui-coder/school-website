@@ -130,6 +130,7 @@ export default {
       }
       .list {
         min-height: 100px;
+        background-color: #fff;
       }
     }
   }

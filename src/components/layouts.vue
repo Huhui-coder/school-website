@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <header class="header-wrap">
-      <div class="icon">家</div>
+      <div class="icon" @click="toHome()">长师招聘</div>
       <div class="link">
         <router-link to="/market">人才市场</router-link>
         <router-link to="/push">每日推送</router-link>
@@ -33,22 +33,26 @@ export default {
   data: () => ({
     role: ""
   }),
-  computed: {
-  },
+  computed: {},
   mounted() {},
   mounted() {
     this.checkLogined();
   },
   methods: {
+    toHome() {
+      this.$router.push({
+        path: "/"
+      });
+    },
     ...mapActions("userInfo", ["asyncsetUserInfo"]),
     ...mapActions("companyInfo", ["asyncsetCompanyInfo"]),
     checkLogined() {
       this.role = this.getUserInfo.role || this.getCompanyInfo.role;
-      localStorage.setItem('role',this.role)
+      localStorage.setItem("role", this.role);
     },
     logout() {
-      this.asyncsetUserInfo({info:{studentId:''}});
-      this.asyncsetCompanyInfo({info:{studentId:''}});
+      this.asyncsetUserInfo({ info: { studentId: "" } });
+      this.asyncsetCompanyInfo({ info: { studentId: "" } });
       window.location.href = "/home";
     }
   }

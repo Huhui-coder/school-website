@@ -8,7 +8,12 @@
             <el-breadcrumb-item>个人中心</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <component :is="active" @openModel="onOpenModel" @openNewModel="onOpenNewModel" />
+        <component
+          :is="active"
+          @openModel="onOpenModel"
+          @openNewModel="onOpenNewModel"
+          class="wrap"
+        />
       </div>
     </layouts>
     <el-dialog
@@ -214,7 +219,7 @@ export default {
   }),
   mounted() {
     this.getPostList();
-    this.getApplyList()
+    this.getApplyList();
   },
   computed: {
     active() {
@@ -228,7 +233,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("userInfo", ["asyncsetUserInfo","asyncsetStudentApply"]),
+    ...mapActions("userInfo", ["asyncsetUserInfo", "asyncsetStudentApply"]),
     ...mapActions("companyInfo", [
       "asyncsetCompanyInfo",
       "asyncsetCompanyPost"
@@ -248,20 +253,36 @@ export default {
       }
     },
     addPost: async function() {
-      let params = Object.assign(this.NCform, {
-        companyId: this.companyId
-      });
-      let res = await this.$api.addPost(params);
-      this.getPostList();
-      this.NCdialogVisible = false;
+      if (this.getCompanyInfo.info.companyName === "") {
+        this.$notify({
+          title: "警告",
+          message: "请先完善您的公司信息",
+          type: "warning"
+        });
+      } else {
+        let params = Object.assign(this.NCform, {
+          companyId: this.companyId
+        });
+        let res = await this.$api.addPost(params);
+        this.getPostList();
+        this.NCdialogVisible = false;
+      }
     },
     addApply: async function() {
-      let params = Object.assign(this.NSform, {
-        studentId: this.studentId
-      });
-      let res = await this.$api.addApply(params);
-      this.getApplyList();
-      this.NSdialogVisible = false;
+      if (this.getUserInfo.info.nickName === "") {
+        this.$notify({
+          title: "警告",
+          message: "请先完善您的个人信息",
+          type: "warning"
+        });
+      } else {
+        let params = Object.assign(this.NSform, {
+          studentId: this.studentId
+        });
+        let res = await this.$api.addApply(params);
+        this.getApplyList();
+        this.NSdialogVisible = false;
+      }
     },
     getPostList: async function() {
       if (this.role === "company") {
@@ -313,6 +334,8 @@ export default {
   background-color: whitesmoke;
   .header {
     padding: 15px;
+    .wrap {
+    }
   }
   .main {
     .wrap {

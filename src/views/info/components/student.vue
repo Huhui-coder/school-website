@@ -18,11 +18,15 @@
         </div>
       </div>
       <div class="wrap">
-        <div class="title">我的投递记录</div>
-        <el-button type="text" @click="toMarket()">去招聘市场</el-button>
+        <div class="title">
+          我的投递记录
+          <el-button type="text" @click="toMarket()">去招聘市场</el-button>
+        </div>
         <my-post-list :list="data"></my-post-list>
-        <div class="title">我的求职申请记录</div>
-        <el-button type="text" @click="openNew()">发布求职申请</el-button>
+        <div class="title">
+          我的求职申请记录
+          <el-button type="text" @click="openNew()">发布求职申请</el-button>
+        </div>
         <div class="list">
           <apply-list :list="getUserApplyList"></apply-list>
         </div>
@@ -34,8 +38,8 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 import applyList from "./applyList";
-import myPostList from './myPostList'
-import { async } from 'q';
+import myPostList from "./myPostList";
+import { async } from "q";
 
 export default {
   name: "company",
@@ -44,10 +48,10 @@ export default {
     myPostList
   },
   data: () => ({
-    data:[]
+    data: []
   }),
   mounted() {
-    this.fetch()
+    this.fetch();
   },
   computed: {
     ...mapGetters("userInfo", {
@@ -59,10 +63,10 @@ export default {
   },
   methods: {
     ...mapActions("userInfo", ["asyncsetUserInfo"]),
-    toMarket (){
+    toMarket() {
       this.$router.push({
-          path: "/market"
-        });
+        path: "/market"
+      });
     },
     open() {
       this.$emit("openModel", "student");
@@ -70,19 +74,19 @@ export default {
     openNew() {
       this.$emit("openNewModel", "student");
     },
-    fetch : async function(){
-      let obj = { studentId: this.studentId };  
+    fetch: async function() {
+      let obj = { studentId: this.studentId };
       let res = await this.$api.myPostList(obj);
-      let postIds = res.result.map((item)=>item.postId)
+      let postIds = res.result.map(item => item.postId);
       let result = await this.$api.allPost(obj);
-      result.result = [].concat.apply([],result.result)
-      let r = []
+      result.result = [].concat.apply([], result.result);
+      let r = [];
       for (let index = 0; index < postIds.length; index++) {
-       r.push(result.result.filter((item)=>item.postId === postIds[index]))
+        r.push(result.result.filter(item => item.postId === postIds[index]));
       }
-      r = [].concat.apply([],r)
-      this.data = r
-      console.log(r)
+      r = [].concat.apply([], r);
+      this.data = r;
+      console.log(r);
     }
   }
 };
@@ -117,6 +121,7 @@ export default {
       }
       .list {
         min-height: 100px;
+        background-color: #fff;
       }
     }
   }
