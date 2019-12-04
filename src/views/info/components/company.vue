@@ -8,8 +8,12 @@
             <svg-icon :icon-class="'user'"></svg-icon>
           </div>
           <div class="text">
-            <p>公司名称：{{getCompanyInfo.info.companyName || ''}}</p>
+            <p>
+              公司名称：{{getCompanyInfo.info.companyName || ''}}
+              <svg-icon :icon-class="'VIP'" v-if="isVIP" class="vip"></svg-icon>
+            </p>
             <p>公司简介：{{getCompanyInfo.info.introduction || ''}}</p>
+            <el-button type="text" @click="beVIP()" v-if="!isVIP">成为VIP</el-button>
             <el-button type="text" @click="open()">编辑公司资料</el-button>
           </div>
         </div>
@@ -48,7 +52,8 @@ export default {
     myApplyList
   },
   data: () => ({
-    data: []
+    data: [],
+    isVIP: true
   }),
   mounted() {
     this.fetch();
@@ -83,11 +88,18 @@ export default {
           studentId: studentIds[index]
         });
         r.push(result.result.data.info);
+        this.isVIP = result.result.data.info.isVIP
       }
       this.data = r;
     },
     open() {
       this.$emit("openModel", "company");
+    },
+    beVIP: async function() {
+      let obj = { companyId: this.companyId };
+      let result = await this.$api.beStudentVIP(obj);
+      alert("确定成为会员？");
+      this.isVIP = true;
     },
     openNew() {
       this.$emit("openNewModel", "company");
@@ -126,6 +138,11 @@ export default {
         }
         .text {
           padding-left: 10%;
+          .vip {
+            width: 30px;
+            height: 30px;
+            padding-left: 30px;
+          }
         }
       }
       .list {

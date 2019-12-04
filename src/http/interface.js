@@ -187,6 +187,22 @@ export const allCompanyList = params => {
         params
     })
 }
+//成为vip  
+export const beCompanysVIP = params => {
+    return axios({
+        url: '/companys/beVIP',
+        method: 'get',
+        params
+    })
+}
+//成为vip  
+export const beStudentVIP = params => {
+    return axios({
+        url: '/students/beVIP',
+        method: 'get',
+        params
+    })
+}
 
 
 
@@ -216,5 +232,7 @@ export default {
     delivery,
     myPostList,
     myApplyList,
-    allCompanyList
+    allCompanyList,
+    beCompanysVIP,
+    beStudentVIP
 }

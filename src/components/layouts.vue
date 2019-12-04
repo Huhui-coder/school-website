@@ -52,7 +52,7 @@ export default {
     },
     logout() {
       this.asyncsetUserInfo({ info: { studentId: "" } });
-      this.asyncsetCompanyInfo({ info: { studentId: "" } });
+      this.asyncsetCompanyInfo({ info: { companyId: "" } });
       window.location.href = "/home";
     }
   }

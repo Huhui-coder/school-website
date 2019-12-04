@@ -8,11 +8,15 @@
             <svg-icon :icon-class="'user'"></svg-icon>
           </div>
           <div class="text">
-            <p>昵称:{{getUserInfo.info.nickName || ''}}</p>
+            <p>
+              昵称:{{getUserInfo.info.nickName || ''}}
+              <svg-icon :icon-class="'VIP'" v-if="isVIP" class="vip"></svg-icon>
+            </p>
             <p>手机号码:{{getUserInfo.info.phone || ''}}</p>
             <p>理想岗位：{{getUserInfo.info.position || ''}}</p>
             <p>理想薪资：{{getUserInfo.info.salary || ''}}</p>
             <p>地区：{{getUserInfo.info.area || ''}}</p>
+            <el-button type="text" @click="beVIP()" v-if="!isVIP">成为VIP</el-button>
             <el-button type="text" @click="open()">编辑个人资料</el-button>
           </div>
         </div>
@@ -22,7 +26,9 @@
           我的投递记录
           <el-button type="text" @click="toMarket()">去招聘市场</el-button>
         </div>
-        <my-post-list :list="data"></my-post-list>
+        <div class="list">
+          <my-post-list :list="data"></my-post-list>
+        </div>
         <div class="title">
           我的求职申请记录
           <el-button type="text" @click="openNew()">发布求职申请</el-button>
@@ -48,7 +54,8 @@ export default {
     myPostList
   },
   data: () => ({
-    data: []
+    data: [],
+    isVIP:true
   }),
   mounted() {
     this.fetch();
@@ -68,6 +75,12 @@ export default {
         path: "/market"
       });
     },
+    beVIP: async function(){
+      let obj = { studentId: this.studentId };
+      let result = await this.$api.beStudentVIP(obj);
+      alert('确定成为会员？')
+      this.isVIP = true
+    },
     open() {
       this.$emit("openModel", "student");
     },
@@ -80,6 +93,7 @@ export default {
       let postIds = res.result.map(item => item.postId);
       let result = await this.$api.allPost(obj);
       result.result = [].concat.apply([], result.result);
+      this.isVIP = result.result.data.info.isVIP
       let r = [];
       for (let index = 0; index < postIds.length; index++) {
         r.push(result.result.filter(item => item.postId === postIds[index]));
@@ -117,6 +131,11 @@ export default {
         }
         .text {
           padding-left: 10%;
+          .vip{
+            width: 30px;
+            height: 30px;
+            padding-left: 30px;
+          }
         }
       }
       .list {

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 
 Vue.config.debug = false
@@ -18,6 +18,12 @@ Vue.mixin({
     })
   },
   methods: {
+    ...mapActions("userInfo", [
+      "asyncsetUserInfo" //userInfo.js文件中的actions里的方法
+    ]),
+    ...mapActions("companyInfo", [
+      "asyncsetCompanyInfo" //userInfo.js文件中的actions里的方法
+    ]),
   }
 })
 
