@@ -203,6 +203,63 @@ export const beStudentVIP = params => {
         params
     })
 }
+export const beCompanyVIP = params => {
+    return axios({
+        url: '/companys/beVIP',
+        method: 'get',
+        params
+    })
+}
+//获取推送
+export const fetchArticles = params => {
+    return axios({
+        url: '/articles',
+        method: 'get',
+        params
+    })
+}
+//新增推送文字
+export const addArticles = data => {
+    return axios({
+        url: '/articles/add',
+        method: 'post',
+        data
+    })
+}
+
+//删除推送
+export const delArticles = params => {
+    return axios({
+        url: '/articles/del',
+        method: 'delete',
+        params
+    })
+}
+//查找推送文字详情
+export const detailArticles = params => {
+    return axios({
+        url: '/articles/detail',
+        method: 'get',
+        params
+    })
+}
+//获取学生个人信息全部
+export const getAllUserInfo = params => {
+    return axios({
+        url: '/students/info',
+        method: 'get',
+        params
+    })
+}
+//获取商家个人信息全部
+export const getAllCompanyInfo = params => {
+    return axios({
+        url: '/companys/info',
+        method: 'get',
+        params
+    })
+}
+
 
 
 
@@ -234,5 +291,12 @@ export default {
     myApplyList,
     allCompanyList,
     beCompanysVIP,
-    beStudentVIP
+    beStudentVIP,
+    beCompanyVIP,
+    fetchArticles,
+    addArticles,
+    delArticles,
+    detailArticles,
+    getAllUserInfo,
+    getAllCompanyInfo
 }

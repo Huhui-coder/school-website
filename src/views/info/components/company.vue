@@ -88,8 +88,8 @@ export default {
           studentId: studentIds[index]
         });
         r.push(result.result.data.info);
-        this.isVIP = result.result.data.info.isVIP
       }
+      this.isVIP = await this.getInfo();
       this.data = r;
     },
     open() {
@@ -97,7 +97,7 @@ export default {
     },
     beVIP: async function() {
       let obj = { companyId: this.companyId };
-      let result = await this.$api.beStudentVIP(obj);
+      let result = await this.$api.beCompanyVIP(obj);
       alert("确定成为会员？");
       this.isVIP = true;
     },
@@ -108,6 +108,11 @@ export default {
       let obj = { companyId: this.companyId };
       let res = await this.$api.getPostList(obj);
       this.asyncsetCompanyPost(res.result);
+    },
+    async getInfo() {
+      let params = { companyId: this.companyId };
+      let res = await this.$api.getAllCompanyInfo(params);
+      return res.result.isVIP;
     }
   }
 };

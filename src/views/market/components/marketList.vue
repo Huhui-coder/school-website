@@ -49,7 +49,6 @@ export default {
   display: row;
   background-color: #fff;
   padding: 10px;
-  margin: 10px;
   .title {
     font-size: 19px;
     font-weight: bolder;

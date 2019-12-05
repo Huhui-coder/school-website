@@ -27,7 +27,12 @@ const routes = [
   {
     path: '/push',
     name: 'push',
-    component: () => import('../views/Push.vue')
+    component: () => import('../views/push/index.vue')
+  },
+  {
+    path: '/pushDetail',
+    name: 'pushDetail',
+    component: () => import('../views/push/detail.vue')
   },
   {
     path: '/complaint',

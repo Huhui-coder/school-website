@@ -93,14 +93,18 @@ export default {
       let postIds = res.result.map(item => item.postId);
       let result = await this.$api.allPost(obj);
       result.result = [].concat.apply([], result.result);
-      this.isVIP = result.result.data.info.isVIP
+      this.isVIP = await this.getInfo()
       let r = [];
       for (let index = 0; index < postIds.length; index++) {
         r.push(result.result.filter(item => item.postId === postIds[index]));
       }
       r = [].concat.apply([], r);
       this.data = r;
-      console.log(r);
+    },
+    async getInfo(){
+      let params = { studentId: this.studentId }
+      let res = await this.$api.getAllUserInfo(params)
+      return res.result.isVIP
     }
   }
 };
