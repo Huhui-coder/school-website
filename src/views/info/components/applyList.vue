@@ -126,7 +126,6 @@ export default {
       let res = await this.$api.delApply(params);
       this.getApplyList();
       this.dialogVisible = false;
-      console.log("确定删除");
     },
     handleClose() {
       this.NCdialogVisible = false;

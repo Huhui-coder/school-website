@@ -97,7 +97,6 @@ export default {
     onDel(value) {
       this.NdialogVisible = true;
       this.currentId = value;
-      console.log(value);
     },
     handleClose() {
       this.dialogVisible = false;

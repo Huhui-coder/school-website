@@ -90,10 +90,8 @@ export default {
         this.hasDelivery = playload.result.data.info.receiveId.every(
           item => item.studentId === this.studentId
         );
-        console.log(this.hasDelivery)
       } else {
         this.hasDelivery = false;
-        console.log(this.hasDelivery)
       }
     },
     delivery: async function() {
