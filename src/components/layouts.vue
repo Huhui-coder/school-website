@@ -14,7 +14,7 @@
         <el-button type="text" @click="logout()">登出</el-button>
       </div>
       <div class="login" v-else>
-        <router-link to="/login">登录/</router-link>
+        <router-link to="/login" style="margin:0">登录/</router-link>
         <router-link to="/register">注册</router-link>
       </div>
     </header>

@@ -9,7 +9,7 @@
               <p hw-animate="fadeInLeft delay-d5s" class="word">维护平台合理有秩序的发展。</p>
             </div>
           </div>
-          <div class="context-wrap">
+          <div class="context-wrap" hw-animate="fadeInUp">
             <p class="description">
               *兼职网站不免出现一些虚假兼职广告以及一些不良商家欺骗学生，为减少学生在选择兼职时上当受骗的可能性。我们将采用让学生投诉的方式，
               加强对虚假广告和不良商家的管理，以防学生的利益受到损失。
@@ -101,7 +101,7 @@ export default {
   .main {
     .backgroud-img {
       height: 260px;
-      background: url(../img/banner-2.jpg) no-repeat 50%;
+      background: url(../../img/banner-2.jpg) no-repeat 50%;
       color: #fff;
       background-size: cover;
       .backgroud-wrap {

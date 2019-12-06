@@ -9,7 +9,7 @@
               <p hw-animate="fadeInLeft delay-d5s" class="word">发掘你想要的，寻求你的千里马。</p>
             </div>
           </div>
-          <div class="context-wrap">
+          <div class="context-wrap" hw-animate="fadeInUp">
             <div class="type-list">
               <div @click="active = 'recruitment'" :class="{active:active === 'recruitment'}">招聘</div>
               <div @click="active = 'apply'" :class="{active:active === 'apply'}">求职</div>

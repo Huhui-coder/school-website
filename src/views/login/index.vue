@@ -8,7 +8,7 @@
             <el-breadcrumb-item>登录</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <div class="main">
+        <div class="main" hw-animate="fadeInUp">
           <div class="card">
             <div class="type-list">
               <div @click="active = 'student'" :class="{active:active === 'student'}">学生</div>
@@ -43,6 +43,7 @@
 <script>
 import layouts from "@/components/layouts";
 import { mapState, mapGetters, mapActions } from "vuex";
+import { runAnimate } from "@/common/animate";
 
 export default {
   name: "register",
@@ -81,6 +82,9 @@ export default {
         pass: [{ validator: validatePass, trigger: "blur" }]
       }
     };
+  },
+  mounted() {
+    runAnimate();
   },
   methods: {
     ...mapActions("userInfo", [

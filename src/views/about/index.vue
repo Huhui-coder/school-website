@@ -63,7 +63,7 @@ export default {
   .main-about {
     .backgroud-img {
       height: 260px;
-      background: url(../img/banner.png) no-repeat 50%;
+      background: url(../../img/banner.png) no-repeat 50%;
       color: #fff;
       .backgroud-wrap {
         width: 80%;

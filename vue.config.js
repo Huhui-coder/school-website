@@ -5,6 +5,7 @@ function resolve(dir) {
   return path.join(__dirname, '.', dir);
 }
 module.exports = {
+  productionSourceMap: false,
   publicPath: './',
   //输出文件目录
   outputDir: 'dist',

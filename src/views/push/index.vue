@@ -9,12 +9,12 @@
               <p hw-animate="fadeInLeft delay-d5s" class="word">了解最新资讯</p>
             </div>
           </div>
-          <div class="context-wrap">
-          <template v-if="isAdmin">
-            <span style="font-size:13px;">您是管理员，您可以</span>
-            <el-button type="text" @click="dialogVisible = true">发表新的推送</el-button>
-          </template>
-          <list :data="list" @del="onDel" />
+          <div class="context-wrap" hw-animate="fadeInUp">
+            <template v-if="isAdmin">
+              <span style="font-size:13px;">您是管理员，您可以</span>
+              <el-button type="text" @click="dialogVisible = true">发表新的推送</el-button>
+            </template>
+            <list :data="list" @del="onDel" />
           </div>
         </div>
       </div>
@@ -71,13 +71,18 @@ export default {
   }),
   computed: {
     isAdmin() {
-      let userName = JSON.parse(localStorage.getItem("userInfo")).info.userName;
-      return userName === "admin";
+      if (JSON.parse(localStorage.getItem("userInfo")) instanceof Object) {
+        let userName = JSON.parse(localStorage.getItem("userInfo")).info
+          .userName;
+        return userName === "admin";
+      } else {
+        return false;
+      }
     }
   },
   mounted() {
     this.fetch();
-    runAnimate()
+    runAnimate();
   },
 
   methods: {
@@ -127,7 +132,7 @@ export default {
   .main-push {
     .backgroud-img {
       height: 260px;
-      background: url('../../img/banner-3.jpg') no-repeat 50%;
+      background: url("../../img/banner-3.jpg") no-repeat 50%;
       background-size: cover;
       color: #fff;
       .backgroud-wrap {
@@ -143,9 +148,10 @@ export default {
         }
       }
     }
-    .context-wrap{
+    .context-wrap {
       width: 80%;
       margin: 0 auto;
+      min-height: 600px;
     }
   }
 }

@@ -6,8 +6,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('../views/Home.vue')
+    name: 'App',
+    component: () => import('../views/App.vue')
   },
   {
     path: '/market',
@@ -37,12 +37,12 @@ const routes = [
   {
     path: '/complaint',
     name: 'complaint',
-    component: () => import('../views/Complaint.vue')
+    component: () => import('../views/complaint/index.vue')
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/About.vue')
+    component: () => import('../views/about/index.vue')
   },
   {
     path: '/userInfo',
@@ -56,7 +56,7 @@ const routes = [
       title: 'Login'
     },
     component: () =>
-      import('../views/Login.vue')
+      import('../views/login/index.vue')
   },
   {
     path: '/register',
@@ -65,20 +65,20 @@ const routes = [
       title: 'Register'
     },
     component: () =>
-      import('../views/Register.vue')
+      import('../views/register/index.vue')
   },
   {
     path: '*',
-    name: 'home',
+    name: 'App',
     meta: {
-      title: 'Home'
+      title: 'App'
     },
     component: () =>
-      import('../views/Home.vue')
+      import('../views/App.vue')
   },
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/App'
   }
 ]
 const router = new VueRouter({

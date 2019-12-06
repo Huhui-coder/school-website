@@ -136,7 +136,6 @@ export default {
         .text {
           padding-left: 10%;
           .vip{
-            width: 30px;
             height: 30px;
             padding-left: 30px;
           }

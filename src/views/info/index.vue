@@ -181,33 +181,33 @@ export default {
   },
   data: () => ({
     form: {
-      nickName: "s",
-      phone: 1,
-      position: "s",
-      salary: 1,
-      area: "s"
+      nickName: "",
+      phone: 0,
+      position: "",
+      salary: 0,
+      area: ""
     },
     Cform: {
-      companyName: "pi",
-      introduction: "pi"
+      companyName: "",
+      introduction: ""
     },
     NCform: {
-      title: "1",
-      type: "2",
-      post: "3",
-      range: "4",
-      number: "5",
+      title: "",
+      type: "",
+      post: "",
+      range: "",
+      number: "",
       fromTime: "",
       toTime: "",
-      location: "6",
-      detail: "7"
+      location: "",
+      detail: ""
     },
     NSform: {
-      name: "1",
-      phone: "1",
-      post: "1",
-      area: "1",
-      range: "1",
+      name: "",
+      phone: "",
+      post: "",
+      area: "",
+      range: "",
       fromTime: "",
       toTime: ""
     },
@@ -322,6 +322,7 @@ export default {
       this.SdialogVisible = false;
       this.CdialogVisible = false;
       this.NCdialogVisible = false;
+      this.NSdialogVisible = false;
     }
   }
 };
