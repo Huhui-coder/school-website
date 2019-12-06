@@ -26,5 +26,17 @@ module.exports = {
     .options({
       symbolId: 'icon-[name]'
     });
+  },
+  configureWebpack: config => {
+    config.entry.vendorModules = ['axios']
+    config.entry.vendorLocal = [
+      '@/assets/css/common.scss'
+    ]
+    config.externals = {
+      'vue': 'Vue',
+      'vuex': 'Vuex',
+      'element-ui': 'ELEMENT',
+      'vue-router': 'VueRouter'
+    }
   }
 }

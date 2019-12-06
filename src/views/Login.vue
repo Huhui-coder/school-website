@@ -144,6 +144,8 @@ export default {
     padding: 15px;
   }
   .main {
+    min-height: 600px;
+    padding-top: 100px;
     .type-list {
       display: flex;
       text-align: center;

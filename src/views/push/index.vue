@@ -2,18 +2,20 @@
   <div class="home">
     <layouts>
       <div slot="content" class="index">
-        <div class="header">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>每日推送</el-breadcrumb-item>
-          </el-breadcrumb>
-        </div>
-        <div class="main">
+        <div class="main-push">
+          <div class="backgroud-img">
+            <div class="backgroud-wrap">
+              <p hw-animate="fadeInLeft" class="me">每日推送</p>
+              <p hw-animate="fadeInLeft delay-d5s" class="word">了解最新资讯</p>
+            </div>
+          </div>
+          <div class="context-wrap">
           <template v-if="isAdmin">
             <span style="font-size:13px;">您是管理员，您可以</span>
             <el-button type="text" @click="dialogVisible = true">发表新的推送</el-button>
           </template>
           <list :data="list" @del="onDel" />
+          </div>
         </div>
       </div>
     </layouts>
@@ -47,6 +49,8 @@
 <script>
 import layouts from "@/components/layouts";
 import list from "./components/list";
+import { runAnimate } from "@/common/animate";
+
 
 export default {
   name: "home",
@@ -73,6 +77,7 @@ export default {
   },
   mounted() {
     this.fetch();
+    runAnimate()
   },
 
   methods: {
@@ -112,14 +117,36 @@ export default {
 </script>
 <style lang="less" scoped>
 .index {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   min-height: 300px;
   background-color: whitesmoke;
   .header {
     padding: 15px;
   }
-  .main {
+  .main-push {
+    .backgroud-img {
+      height: 260px;
+      background: url('../../img/banner-3.jpg') no-repeat 50%;
+      background-size: cover;
+      color: #fff;
+      .backgroud-wrap {
+        width: 80%;
+        margin: 0 auto;
+        .me {
+          font-size: 38px;
+          padding-top: 86px;
+        }
+        .word {
+          font-size: 15px;
+          padding-top: 20px;
+        }
+      }
+    }
+    .context-wrap{
+      width: 80%;
+      margin: 0 auto;
+    }
   }
 }
 </style>

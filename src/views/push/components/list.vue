@@ -1,10 +1,10 @@
 <template>
   <div style="background-color:#fff;">
     <div class="wrap" v-for="(item,index) in data" :key="item._id" @click="toDetail(item._id)">
-        <div class="my-icon" v-if="isAdmin" @click.stop="del(item._id)" >
+      <div class="my-icon" v-if="isAdmin" @click.stop="del(item._id)">
         <svg-icon :icon-class="'deleted'" style="width:30px;height:30px"></svg-icon>
-        </div>
-      <div class="img"> 
+      </div>
+      <div class="img">
         <svg-icon :icon-class="'icon-'+index" class="icon"></svg-icon>
       </div>
       <div class="text">
@@ -19,13 +19,13 @@
 
 <script>
 export default {
-    props:{
-        data:{
-            type:Array,
-            required:true
-        }
-    },
-    computed: {
+  props: {
+    data: {
+      type: Array,
+      required: true
+    }
+  },
+  computed: {
     isAdmin() {
       let userName = JSON.parse(localStorage.getItem("userInfo")).info.userName;
       return userName === "admin";
@@ -35,9 +35,8 @@ export default {
     toDetail(id) {
       this.$router.push({ path: "/pushDetail", query: { id: id } });
     },
-    del(id){
+    del(id) {
       this.$emit("del", id);
-
     }
   }
 };
@@ -58,17 +57,17 @@ export default {
   &:hover > .text > .title {
     color: cornflowerblue;
   }
-  &:hover >.my-icon{
-      display: block;
+  &:hover > .my-icon {
+    display: block;
   }
-  .my-icon{
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 30px;
-      height: 30px;
-      display: none;
-      cursor: pointer;
+  .my-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    display: none;
+    cursor: pointer;
   }
 
   .img {

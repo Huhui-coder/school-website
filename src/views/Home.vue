@@ -4,8 +4,10 @@
       <div slot="content" class="index">
         <div class="first-wrap">
           <el-carousel :interval="4000" type="card" height="200px">
-            <el-carousel-item v-for="item in 6" :key="item">
+            <el-carousel-item v-for="item in imgList" :key="item">
               <h3 class="medium">{{ item }}</h3>
+              <!-- <div class="'banner-'+index"> -->
+              <!-- </div> -->
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -95,6 +97,8 @@
         </div>
       </div>
     </layouts>
+    <div>
+    </div>
   </div>
 </template>
 
@@ -106,6 +110,11 @@ export default {
   name: "home",
   components: {
     layouts
+  },
+  data(){
+    return {
+      imgList:['../img/banner-4.jpg','../img/banner-4.jpg','../img/banner-4.jpg','../img/banner-4.jpg','../img/banner-4.jpg']
+    }
   },
   methods: {},
   mounted() {

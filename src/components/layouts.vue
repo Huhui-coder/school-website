@@ -96,8 +96,10 @@ export default {
   }
   footer {
     text-align: center;
+    color: #fff;
     margin: 0 auto;
-    background-color: whitesmoke;
+    background-color: #25272e;
+    min-height: 100px;
   }
 }
 </style>>
