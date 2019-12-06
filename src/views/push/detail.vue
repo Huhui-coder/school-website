@@ -63,7 +63,7 @@ export default {
     width: 80%;
     margin: 0 auto;
     background-color: #fff;
-    min-height: 200px;
+    min-height: 600px;
     padding:30px;
     .title {
       font-weight: 700;
