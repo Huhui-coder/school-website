@@ -165,6 +165,7 @@ export default {
 
 <style lang="less" scoped>
 .wrap {
+  margin-bottom: 20px;
   .item {
     display: flex;
     flex-direction: row;

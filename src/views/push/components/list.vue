@@ -27,8 +27,13 @@ export default {
   },
   computed: {
     isAdmin() {
-      let userName = JSON.parse(localStorage.getItem("userInfo")).info.userName;
-      return userName === "admin";
+      if (JSON.parse(localStorage.getItem("userInfo")) instanceof Object) {
+        let userName = JSON.parse(localStorage.getItem("userInfo")).info
+          .userName;
+        return userName === "admin";
+      } else {
+        return false;
+      }
     }
   },
   methods: {

@@ -13,7 +13,7 @@
           <div class="title">{{data.title}}</div>
           <div class="content">
             <span class="type">类型:{{data.type}}</span>
-            <span class="time">时间:{{data.time}}</span>
+            <span class="time">时间:{{data.time | dateformat}}</span>
           </div>
           <div class="text" v-html="data.text"></div>
         </div>

@@ -44,7 +44,8 @@ export default {
   .wrap {
     width: 30%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    margin: 10px;
   }
 }
 </style>>

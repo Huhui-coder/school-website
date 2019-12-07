@@ -5,9 +5,7 @@
         <div class="first-wrap">
           <el-carousel :interval="4000" type="card" height="200px">
             <el-carousel-item v-for="item in imgList" :key="item">
-              <h3 class="medium">{{ item }}</h3>
-              <!-- <div class="'banner-'+index"> -->
-              <!-- </div> -->
+              <img :src="item" alt="">
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -113,7 +111,7 @@ export default {
   },
   data(){
     return {
-      imgList:['../img/banner-4.jpg','../img/banner-4.jpg','../img/banner-4.jpg','../img/banner-4.jpg','../img/banner-4.jpg']
+      imgList:['https://i.loli.net/2019/12/07/zptQOlXsn5xW9fa.jpg','https://i.loli.net/2019/12/07/uUX8lkbFw3KSYCn.jpg','https://i.loli.net/2019/12/07/2AyF8qrkJxGYa1o.png','https://i.loli.net/2019/12/07/9PdxHyJKjY2CoW8.jpg']
     }
   },
   methods: {},
@@ -140,12 +138,6 @@ export default {
         opacity: 0.75;
         line-height: 200px;
         margin: 0;
-      }
-      .el-carousel__item:nth-child(2n) {
-        background-color: #99a9bf;
-      }
-      .el-carousel__item:nth-child(2n + 1) {
-        background-color: #d3dce6;
       }
     }
     .seconde-wrap {
