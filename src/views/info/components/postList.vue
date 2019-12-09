@@ -103,15 +103,15 @@ export default {
     dialogVisible: false,
     currentPostId: "",
     NCform: {
-      title: "1",
-      type: "2",
-      post: "3",
-      range: "4",
-      number: "5",
+      title: "",
+      type: "",
+      post: "",
+      range: "",
+      number: "",
       fromTime: "",
       toTime: "",
-      location: "6",
-      detail: "7"
+      location: "",
+      detail: ""
     }
   }),
   computed: {
@@ -134,7 +134,7 @@ export default {
         companyId: this.companyId,
         postId: this.currentPostId
       };
-      let res = await this.$api.delApply(params);
+      let res = await this.$api.delPost(params);
       this.getPostList();
       this.dialogVisible = false;
     },

@@ -27,6 +27,12 @@ module.exports = {
     .options({
       symbolId: 'icon-[name]'
     });
+    config
+    .plugin('html')
+      .tap(args => {
+        args[0].template = path.resolve(__dirname, 'public/index.html')
+        return args
+      })
   },
   configureWebpack: config => {
     config.entry.vendorModules = ['axios']
