@@ -1,9 +1,9 @@
 <template>
   <div class="wrap">
     <header class="header-wrap">
-      <div class="icon" @click="toHome()">长师招聘</div>
+      <div class="icon" @click="toHome()">校园兼职网</div>
       <div class="link">
-        <router-link to="/market">人才市场</router-link>
+        <!-- <router-link to="/market">人才市场</router-link> -->
         <router-link to="/push">每日推送</router-link>
         <router-link to="/complaint">投诉平台</router-link>
         <router-link to="/about">关于我们</router-link>
@@ -21,7 +21,18 @@
     <main>
       <slot name="content" scope="props" />
     </main>
-    <footer>@版权所有</footer>
+    <footer>
+      <div class="footer-wrap">
+        <router-link to="/advertising_services" tag="span">广告服务</router-link>
+        <router-link to="/help_center" tag="span">帮助中心</router-link>
+        <router-link to="/site_introduction" tag="span">站点简介</router-link>
+        <router-link to="/contact_us" tag="span">联系我们</router-link>
+        <router-link to="/user_agreement" tag="span">用户协议</router-link>
+        <router-link to="/customer_feedback" tag="span">用户反馈</router-link>
+        <router-link to="/security_center" tag="span">安全中心</router-link>
+      </div>
+      <p>校园兼职网免费提供兼职信息，如转载请保留校园兼职网版权</p>
+    </footer>
   </div>
 </template>
 
@@ -60,16 +71,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.router-link-active::after {
-  content: "";
-  position: absolute;
-  display: block;
-  border-bottom: 2px solid #fff;
-  bottom: -3px;
-  width: 100%;
-  height: 2px;
-  left: 0px;
-}
 .wrap {
   width: 100%;
   height: 100%;
@@ -84,6 +85,16 @@ export default {
     display: flex;
     justify-content: space-around;
     line-height: 50px;
+    .router-link-active::after {
+      content: "";
+      position: absolute;
+      display: block;
+      border-bottom: 2px solid #fff;
+      bottom: -3px;
+      width: 100%;
+      height: 2px;
+      left: 0px;
+    }
     a {
       color: #fff;
       margin: 0 40px 0 0;
@@ -99,7 +110,24 @@ export default {
     color: #fff;
     margin: 0 auto;
     background-color: #25272e;
-    min-height: 100px;
+    min-height: 200px;
+    .footer-wrap {
+      padding: 30px;
+      & > span {
+        border-right: 1px solid #ddd;
+        margin: 10px;
+        padding-right: 10px;
+      }
+      & > .router-link-active {
+        height: 0 !important;
+      }
+      & > span:last-child {
+        border-right: none;
+      }
+      & > span:hover {
+        color: rgb(107, 107, 240);
+      }
+    }
   }
 }
 </style>>
