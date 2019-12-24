@@ -8,7 +8,7 @@ import md5 from "js-md5";
 import api from "./http/index";
 Vue.use(api);
 
-import { Button, Select, Carousel, CarouselItem, Breadcrumb, BreadcrumbItem,Form,FormItem, Input,InputNumber,Option,Notification,Dialog,DatePicker,Col} from 'element-ui';
+import { Button, Select, Carousel, CarouselItem, Breadcrumb, BreadcrumbItem,Form,FormItem, Input,InputNumber,Option,Notification,Dialog,DatePicker,Col, Upload} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 
@@ -27,6 +27,7 @@ Vue.use(InputNumber)
 Vue.component(Notification)
 Vue.use(Option) 
 Vue.use(DatePicker) 
+Vue.use(Upload) 
 Vue.use(Dialog)  
 Vue.use(Col)  
 Vue.config.productionTip = false

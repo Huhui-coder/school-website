@@ -17,7 +17,23 @@
             <p>理想薪资：{{getUserInfo.info.salary || ''}}</p>
             <p>地区：{{getUserInfo.info.area || ''}}</p>
             <el-button type="text" @click="beVIP()" v-if="!isVIP">成为VIP</el-button>
+            <el-button type="text" @click="showPDF()">我的PDF简历</el-button>
             <el-button type="text" @click="open()">编辑个人资料</el-button>
+            <el-upload
+              class="upload-demo"
+              drag
+              action
+              name="file"
+              multiple
+              :before-upload="handleUpload"
+            >
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">
+                将文件拖到此处，或
+                <em>点击上传</em>
+              </div>
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
           </div>
         </div>
       </div>
@@ -45,7 +61,7 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 import applyList from "./applyList";
 import myPostList from "./myPostList";
-import { async } from "q";
+import config from "@/http/config.js"; // 导入默认配置
 
 export default {
   name: "company",
@@ -55,10 +71,12 @@ export default {
   },
   data: () => ({
     data: [],
-    isVIP:true
+    isVIP: true,
+    pdfSrc:''
   }),
   mounted() {
     this.fetch();
+    console.log(config.fileURL);
   },
   computed: {
     ...mapGetters("userInfo", {
@@ -70,16 +88,48 @@ export default {
   },
   methods: {
     ...mapActions("userInfo", ["asyncsetUserInfo"]),
+    ...mapActions("file", ["uploadFile", "save"]),
+
+    handleUpload(file) {
+      const fileName = file.name;
+      const fileType = fileName.split(".").pop();
+      if (!["pdf"].includes(fileType)) {
+        this.$message({
+          message: "文件类型仅支持.pdf格式",
+          type: "error"
+        });
+        return false;
+      }
+      const form = new FormData();
+      form.append("file", file);
+      this.uploadFile(form).then(rs => {
+        let path = rs.data.path;
+        let params = { studentId: this.studentId, path: path };
+        this.save(params).then(rs => {
+          this.pdfSrc = rs.data.result[0].pdf;
+          let newObject = JSON.parse(localStorage.getItem('userInfo'));
+          this.pdfSrc = this.pdfSrc.slice(7);
+          newObject.info.pdf = this.pdfSrc;
+          localStorage.setItem('userInfo',JSON.stringify(newObject));
+        });
+      });
+      return false;
+    },
+    showPDF() {
+      window.open(
+        `${config.fileURL}${this.pdfSrc}`
+      );
+    },
     toMarket() {
       this.$router.push({
         path: "/market"
       });
     },
-    beVIP: async function(){
+    beVIP: async function() {
       let obj = { studentId: this.studentId };
       let result = await this.$api.beStudentVIP(obj);
-      alert('确定成为会员？')
-      this.isVIP = true
+      alert("确定成为会员？");
+      this.isVIP = true;
     },
     open() {
       this.$emit("openModel", "student");
@@ -93,7 +143,7 @@ export default {
       let postIds = res.result.map(item => item.postId);
       let result = await this.$api.allPost(obj);
       result.result = [].concat.apply([], result.result);
-      this.isVIP = await this.getInfo()
+      this.isVIP = await this.getInfo();
       let r = [];
       for (let index = 0; index < postIds.length; index++) {
         r.push(result.result.filter(item => item.postId === postIds[index]));
@@ -101,10 +151,10 @@ export default {
       r = [].concat.apply([], r);
       this.data = r;
     },
-    async getInfo(){
-      let params = { studentId: this.studentId }
-      let res = await this.$api.getAllUserInfo(params)
-      return res.result.isVIP
+    async getInfo() {
+      let params = { studentId: this.studentId };
+      let res = await this.$api.getAllUserInfo(params);
+      return res.result.isVIP;
     }
   }
 };
@@ -135,7 +185,7 @@ export default {
         }
         .text {
           padding-left: 10%;
-          .vip{
+          .vip {
             height: 30px;
             padding-left: 30px;
           }

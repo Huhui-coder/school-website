@@ -3,7 +3,7 @@ export default {
     // 基础url前缀
     baseURL: 'http://47.103.12.90:3000',
     //文件请求地址
-    fileURL: 'http://47.103.12.90:3000',
+    fileURL: 'http://47.103.12.90:3000/',
     // 请求头信息
     headers: {
         'Content-Type': 'application/json;charset=UTF-8'
